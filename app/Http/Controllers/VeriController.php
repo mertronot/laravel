@@ -9,7 +9,7 @@ class VeriController extends Controller
 {
     public function create()
     {
-        return view('veri_ekle');
+        return view('urun_ekle');
     }
 
     public function store(Request $request)
