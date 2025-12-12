@@ -24,7 +24,7 @@
                                                 <h4>{{ $veri->baslik }}</h4>
                                                 <p>{{ $veri->icerik }}</p>
                                                 <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <a href="#"
+                                                    <a href="/icerik/{{ $veri->id }}/{{ Str::slug($veri->baslik) }}"
                                                         class="btn border border-secondary rounded-pill px-3 text-primary"><i
                                                             class="fa fa-shopping-bag me-2 text-primary"></i>Veriyi
                                                         görüntüle</a>

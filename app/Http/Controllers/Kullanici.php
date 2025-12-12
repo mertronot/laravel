@@ -14,6 +14,29 @@ class Kullanici extends Controller
         return view('login');
     }
 
+    public function girisYapIslemi(Request $request)
+    {
+        $request->validate([
+            'e_posta' => 'required|email',
+            'parola' => 'required'
+        ]);
+
+        if (auth()->attempt(['e_posta' => $request->e_posta, 'password' => $request->parola], $request->has('beni_hatirla'))) {
+            $request->session()->regenerate();
+            return redirect()->intended('/');
+        }
+
+        return back()->with('mesaj', 'E-posta veya şifre hatalı!');
+    }
+
+    public function cikisYap(Request $request)
+    {
+        auth()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
+    }
+
     public function uyeOl()
     {
         return view('register');
@@ -53,6 +76,12 @@ class Kullanici extends Controller
         $uye->save();
 
         return "Üye kaydı başarılı.";
+    }
+
+    public function icerikGoster($id, $slug = null)
+    {
+        $veri = Veri::findOrFail($id);
+        return view('icerik', compact('veri'));
     }
 }
 
